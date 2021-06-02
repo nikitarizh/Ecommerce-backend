@@ -9,6 +9,7 @@ import javax.persistence.ManyToMany;
 import java.util.List;
 
 @Entity
+@Data
 public class Product {
     @Id
     private Integer id;

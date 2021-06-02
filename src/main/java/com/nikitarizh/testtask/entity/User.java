@@ -1,9 +1,12 @@
 package com.nikitarizh.testtask.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 public class User {
 
     @Id
