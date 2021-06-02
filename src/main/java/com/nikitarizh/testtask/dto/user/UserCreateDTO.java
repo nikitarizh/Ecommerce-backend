@@ -1,7 +1,9 @@
 package com.nikitarizh.testtask.dto.user;
 
 import com.nikitarizh.testtask.entity.UserType;
+import lombok.Data;
 
+@Data
 public class UserCreateDTO {
     private Integer id;
 
