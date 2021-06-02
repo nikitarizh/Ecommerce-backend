@@ -13,6 +13,6 @@ public class Tag {
 
     private String value;
 
-    @ManyToMany
+    @ManyToMany (mappedBy = "tags")
     private List<Product> products;
 }

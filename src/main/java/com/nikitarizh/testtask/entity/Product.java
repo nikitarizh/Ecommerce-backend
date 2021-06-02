@@ -16,6 +16,6 @@ public class Product {
     @ManyToMany
     private List<Tag> tags;
 
-    @ManyToMany
+    @ManyToMany (mappedBy = "orderedProducts")
     private List<User> orderedBy;
 }
