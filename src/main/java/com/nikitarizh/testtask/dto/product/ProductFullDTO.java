@@ -1,5 +1,6 @@
 package com.nikitarizh.testtask.dto.product;
 
+import com.nikitarizh.testtask.entity.Product;
 import com.nikitarizh.testtask.entity.Tag;
 import lombok.Data;
 
@@ -12,4 +13,13 @@ public class ProductFullDTO {
     private String description;
 
     private List<Tag> tags;
+
+    public ProductFullDTO(Product product) {
+        this.id = product.getId();
+        this.description = product.getDescription();
+        this.tags = product.getTags();
+    }
+
+    public ProductFullDTO() {
+    }
 }
