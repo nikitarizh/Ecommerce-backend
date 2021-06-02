@@ -1,0 +1,13 @@
+package com.nikitarizh.testtask.dto.product;
+
+import com.nikitarizh.testtask.entity.Tag;
+
+import java.util.List;
+
+public class ProductUpdateDTO {
+    private Integer id;
+
+    private String description;
+
+    private List<Tag> tags;
+}
