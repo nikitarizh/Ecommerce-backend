@@ -13,13 +13,4 @@ public class ProductFullDTO {
     private String description;
 
     private List<Tag> tags;
-
-    public ProductFullDTO(Product product) {
-        this.id = product.getId();
-        this.description = product.getDescription();
-        this.tags = product.getTags();
-    }
-
-    public ProductFullDTO() {
-    }
 }
