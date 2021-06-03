@@ -1,6 +1,7 @@
 package com.nikitarizh.testtask.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,5 +17,6 @@ public class Tag {
     private String value;
 
     @ManyToMany (mappedBy = "tags")
+    @ToString.Exclude
     private List<Product> products;
 }

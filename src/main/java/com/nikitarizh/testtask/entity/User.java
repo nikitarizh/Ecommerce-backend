@@ -1,6 +1,7 @@
 package com.nikitarizh.testtask.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,5 +23,6 @@ public class User {
     private String email;
 
     @ManyToMany
+    @ToString.Exclude
     private List<Product> orderedProducts;
 }

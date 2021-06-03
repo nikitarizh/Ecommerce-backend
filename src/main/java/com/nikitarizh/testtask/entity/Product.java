@@ -20,13 +20,4 @@ public class Product {
 
     @ManyToMany (mappedBy = "orderedProducts")
     private List<User> orderedBy;
-
-    public Product(ProductCreateDTO productCreateDTO) {
-        this.description = productCreateDTO.getDescription();
-        this.tags = productCreateDTO.getTags();
-    }
-
-    public Product() {
-
-    }
 }
