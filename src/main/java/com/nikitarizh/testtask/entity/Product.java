@@ -1,6 +1,5 @@
 package com.nikitarizh.testtask.entity;
 
-import com.nikitarizh.testtask.dto.product.ProductCreateDTO;
 import lombok.Data;
 
 import javax.persistence.*;
