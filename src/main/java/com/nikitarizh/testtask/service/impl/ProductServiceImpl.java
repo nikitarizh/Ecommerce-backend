@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import static com.nikitarizh.testtask.mapper.ProductMapper.PRODUCT_MAPPER;
 
@@ -47,7 +46,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public Iterable<ProductFullDTO> findAll() {
-        return StreamSupport.stream(productRepository.findAll().spliterator(), false).map(PRODUCT_MAPPER::mapToFullDTO).collect(Collectors.toList());
+        return productRepository.findAll().stream()
+                .map(PRODUCT_MAPPER::mapToFullDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
