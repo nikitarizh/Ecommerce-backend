@@ -9,5 +9,5 @@ import java.util.List;
 public class ProductCreateDTO {
     private String description;
 
-    private List<Tag> tags;
+    private List<Integer> tagIds;
 }
