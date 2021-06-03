@@ -19,5 +19,5 @@ public interface ProductService {
 
     ProductFullDTO update(ProductUpdateDTO productUpdateDTO, boolean force);
 
-    void delete(ProductDeleteDTO productDeleteDTO);
+    void delete(Integer productId);
 }
