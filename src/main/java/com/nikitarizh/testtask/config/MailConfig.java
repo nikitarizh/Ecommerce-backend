@@ -1,4 +1,4 @@
-package com.nikitarizh.testtask.util;
+package com.nikitarizh.testtask.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +9,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import java.util.Properties;
 
 @Configuration
-public class Mailer {
+public class MailConfig {
 
     @Value("${emailUser}")
     private String login;
