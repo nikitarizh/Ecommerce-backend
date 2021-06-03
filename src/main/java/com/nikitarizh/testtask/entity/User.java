@@ -14,7 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    private UserType userType;
+    private UserType type;
 
     private String nickname;
 
