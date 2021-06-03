@@ -10,5 +10,5 @@ public interface CartService {
 
     void removeItem(OrderChangeDTO orderChangeDTO);
 
-    void buyItems(UserFullDTO userFullDTO);
+    void buyItems(Integer userId);
 }

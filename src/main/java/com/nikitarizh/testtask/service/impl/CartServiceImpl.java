@@ -2,7 +2,6 @@ package com.nikitarizh.testtask.service.impl;
 
 import com.nikitarizh.testtask.dto.order.OrderChangeDTO;
 import com.nikitarizh.testtask.dto.product.ProductFullDTO;
-import com.nikitarizh.testtask.dto.user.UserFullDTO;
 import com.nikitarizh.testtask.entity.Product;
 import com.nikitarizh.testtask.entity.User;
 import com.nikitarizh.testtask.exception.ProductAlreadyInCartException;
@@ -14,13 +13,11 @@ import com.nikitarizh.testtask.service.CartService;
 import com.nikitarizh.testtask.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.nikitarizh.testtask.mapper.ProductMapper.PRODUCT_MAPPER;
 
 @Service
-@Transactional
 public class CartServiceImpl implements CartService {
 
     private final MailService mailService;
@@ -37,6 +34,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ProductFullDTO addItem(OrderChangeDTO orderChangeDTO) {
         Product requestedProduct = productRepository.findById(orderChangeDTO.getProductId())
                 .orElseThrow(() -> new ProductNotFoundException(orderChangeDTO.getProductId()));
@@ -54,6 +52,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public void removeItem(OrderChangeDTO orderChangeDTO) {
         Product requestedProduct = productRepository.findById(orderChangeDTO.getProductId())
                 .orElseThrow(() -> new ProductNotFoundException(orderChangeDTO.getProductId()));
@@ -65,9 +64,10 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void buyItems(UserFullDTO userFullDTO) {
-        User user = userRepository.findById(userFullDTO.getId())
-                .orElseThrow(() -> new UserNotFoundException(userFullDTO.getId()));
+    @Transactional
+    public void buyItems(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
 
         mailService.sendBuyNotification(user);
 
