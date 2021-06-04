@@ -26,8 +26,10 @@ public class TagServiceImpl implements TagService {
     @Override
     @Transactional(readOnly = true)
     public TagFullDTO findById(Integer id) {
-        Tag result = tagRepository.findById(id).orElseThrow(() -> new TagNotFoundException(id));
-        return TAG_MAPPER.mapToFullDTO(result);
+        return TAG_MAPPER.mapToFullDTO(
+                tagRepository.findById(id)
+                        .orElseThrow(() -> new TagNotFoundException(id))
+        );
     }
 
     @Override

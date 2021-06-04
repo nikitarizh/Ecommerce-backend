@@ -28,12 +28,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserFullDTO findById(Integer id) throws UserNotFoundException {
-        Optional<User> result = userRepository.findById(id);
-        if (result.isEmpty()) {
-            throw new UserNotFoundException(id);
-        }
-
-        return USER_MAPPER.mapToFullDTO(result.get());
+        return USER_MAPPER.mapToFullDTO(
+                userRepository.findById(id)
+                        .orElseThrow(() -> new UserNotFoundException(id))
+        );
     }
 
     @Override

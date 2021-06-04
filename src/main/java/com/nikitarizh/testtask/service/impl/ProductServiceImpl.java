@@ -33,12 +33,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public ProductFullDTO findById(Integer id) throws ProductNotFoundException {
-        Optional<Product> result = productRepository.findById(id);
-        if (result.isEmpty()) {
-            throw new ProductNotFoundException(id);
-        }
-
-        return PRODUCT_MAPPER.mapToFullDTO(result.get());
+        return PRODUCT_MAPPER.mapToFullDTO(
+                productRepository.findById(id)
+                        .orElseThrow(() -> new ProductNotFoundException(id))
+        );
     }
 
     @Override
