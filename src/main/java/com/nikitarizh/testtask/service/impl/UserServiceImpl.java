@@ -7,12 +7,9 @@ import com.nikitarizh.testtask.exception.UserNotFoundException;
 import com.nikitarizh.testtask.repository.UserRepository;
 import com.nikitarizh.testtask.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 import static com.nikitarizh.testtask.mapper.UserMapper.USER_MAPPER;
 
@@ -22,12 +19,9 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    @Value("${bcryptRounds}")
-    private final Integer rounds;
-
     @Override
     @Transactional(readOnly = true)
-    public UserFullDTO findById(Integer id) throws UserNotFoundException {
+    public UserFullDTO findById(Integer id) {
         return USER_MAPPER.mapToFullDTO(
                 userRepository.findById(id)
                         .orElseThrow(() -> new UserNotFoundException(id))
@@ -40,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
         User newUser = userRepository.save(USER_MAPPER.mapToEntity(userCreateDTO));
 
-        String hashedPassword = BCrypt.hashpw(userCreateDTO.getPassword(), BCrypt.gensalt(rounds));
+        String hashedPassword = new BCryptPasswordEncoder().encode(userCreateDTO.getPassword());
         newUser.setPassword(hashedPassword);
 
         return USER_MAPPER.mapToFullDTO(newUser);
