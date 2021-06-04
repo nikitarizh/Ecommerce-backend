@@ -1,5 +1,6 @@
 package com.nikitarizh.testtask.mapper;
 
+import com.nikitarizh.testtask.dto.tag.TagCreateDTO;
 import com.nikitarizh.testtask.dto.tag.TagFullDTO;
 import com.nikitarizh.testtask.entity.Tag;
 import org.mapstruct.Mapper;
@@ -12,5 +13,5 @@ public interface TagMapper {
 
     TagFullDTO mapToFullDTO(Tag tag);
 
-    Tag mapToEntity(TagFullDTO tagFullDTO);
+    Tag mapToEntity(TagCreateDTO tagFullDTO);
 }
