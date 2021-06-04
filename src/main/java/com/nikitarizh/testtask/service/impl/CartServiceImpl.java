@@ -4,6 +4,7 @@ import com.nikitarizh.testtask.dto.order.OrderChangeDTO;
 import com.nikitarizh.testtask.dto.product.ProductFullDTO;
 import com.nikitarizh.testtask.entity.Product;
 import com.nikitarizh.testtask.entity.User;
+import com.nikitarizh.testtask.exception.CartIsEmptyException;
 import com.nikitarizh.testtask.exception.ProductAlreadyInCartException;
 import com.nikitarizh.testtask.exception.ProductNotFoundException;
 import com.nikitarizh.testtask.exception.UserNotFoundException;
@@ -59,6 +60,10 @@ public class CartServiceImpl implements CartService {
     public void buyItems(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
+
+        if (user.getOrderedProducts().size() == 0) {
+            throw new CartIsEmptyException();
+        }
 
         mailService.sendBuyNotification(user);
 
