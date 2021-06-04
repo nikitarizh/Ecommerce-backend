@@ -63,10 +63,10 @@ public class ProductServiceImpl implements ProductService {
 
         if (!force && productToUpdate.getOrderedBy().size() > 0) {
             throw new ProductIsInCartException(productToUpdate);
-        } else {
-            for (User buyer : productToUpdate.getOrderedBy()) {
-                mailService.sendProductUpdateNotification(buyer, productToUpdate, productUpdateDTO);
-            }
+        }
+
+        for (User buyer : productToUpdate.getOrderedBy()) {
+            mailService.sendProductUpdateNotification(buyer, productToUpdate, productUpdateDTO);
         }
 
         productToUpdate.setDescription(productUpdateDTO.getDescription());
