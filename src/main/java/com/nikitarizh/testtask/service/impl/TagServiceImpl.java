@@ -31,6 +31,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Tag> findAllByIds(List<Integer> ids) {
         return ids.stream()
                 .map((id) -> tagRepository.findById(id)
@@ -39,6 +40,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TagPreviewDTO> findAll() {
         return tagRepository.findAll()
                 .stream()
@@ -47,12 +49,14 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    @Transactional
     public TagPreviewDTO create(TagCreateDTO tagCreateDTO) {
         Tag newTag = tagRepository.save(TAG_MAPPER.mapToEntity(tagCreateDTO));
         return TAG_MAPPER.mapToPreviewDTO(newTag);
     }
 
     @Override
+    @Transactional
     public TagPreviewDTO update(TagUpdateDTO tagUpdateDTO) {
         Tag tagToUpdate = tagRepository.findById(tagUpdateDTO.getId())
                 .orElseThrow(() -> new TagNotFoundException(tagUpdateDTO.getId()));
@@ -63,6 +67,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
         tagRepository.deleteById(id);
     }
