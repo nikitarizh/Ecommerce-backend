@@ -6,7 +6,6 @@ import com.nikitarizh.testtask.entity.User;
 import com.nikitarizh.testtask.exception.CartIsEmptyException;
 import com.nikitarizh.testtask.exception.ProductAlreadyInCartException;
 import com.nikitarizh.testtask.exception.ProductNotFoundException;
-import com.nikitarizh.testtask.exception.UserNotFoundException;
 import com.nikitarizh.testtask.repository.ProductRepository;
 import com.nikitarizh.testtask.repository.UserRepository;
 import com.nikitarizh.testtask.service.AuthService;

@@ -1,7 +1,6 @@
 package com.nikitarizh.testtask.service.impl;
 
 import com.nikitarizh.testtask.entity.User;
-import com.nikitarizh.testtask.entity.UserType;
 import com.nikitarizh.testtask.exception.UserNotFoundException;
 import com.nikitarizh.testtask.repository.UserRepository;
 import com.nikitarizh.testtask.service.AuthService;
