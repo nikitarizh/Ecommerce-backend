@@ -19,4 +19,8 @@ public class Handler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ProductIsInCartException.class)
     public void handle(ProductIsInCartException e) {}
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(CartIsEmptyException.class)
+    public void handle(CartIsEmptyException e) {}
 }
