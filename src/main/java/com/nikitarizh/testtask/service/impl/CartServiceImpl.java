@@ -12,7 +12,6 @@ import com.nikitarizh.testtask.repository.UserRepository;
 import com.nikitarizh.testtask.service.CartService;
 import com.nikitarizh.testtask.service.MailService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +27,7 @@ public class CartServiceImpl implements CartService {
     private final UserRepository userRepository;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public ProductFullDTO addItem(OrderChangeDTO orderChangeDTO) {
         Product requestedProduct = productRepository.findById(orderChangeDTO.getProductId())
                 .orElseThrow(() -> new ProductNotFoundException(orderChangeDTO.getProductId()));
