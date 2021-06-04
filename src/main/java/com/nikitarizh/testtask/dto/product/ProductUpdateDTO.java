@@ -1,6 +1,5 @@
 package com.nikitarizh.testtask.dto.product;
 
-import com.nikitarizh.testtask.entity.Tag;
 import lombok.Data;
 
 import java.util.List;
@@ -11,5 +10,5 @@ public class ProductUpdateDTO {
 
     private String description;
 
-    private List<Tag> tags;
+    private List<Integer> tagIds;
 }

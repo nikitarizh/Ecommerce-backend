@@ -6,7 +6,7 @@ import com.nikitarizh.testtask.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(uses = ProductMapper.class)
 public interface UserMapper {
 
     UserMapper USER_MAPPER = Mappers.getMapper(UserMapper.class);

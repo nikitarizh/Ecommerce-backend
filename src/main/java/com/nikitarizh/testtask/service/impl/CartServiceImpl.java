@@ -2,7 +2,6 @@ package com.nikitarizh.testtask.service.impl;
 
 import com.nikitarizh.testtask.dto.order.OrderChangeDTO;
 import com.nikitarizh.testtask.dto.product.ProductFullDTO;
-import com.nikitarizh.testtask.dto.user.UserFullDTO;
 import com.nikitarizh.testtask.entity.Product;
 import com.nikitarizh.testtask.entity.User;
 import com.nikitarizh.testtask.exception.ProductAlreadyInCartException;
@@ -12,15 +11,14 @@ import com.nikitarizh.testtask.repository.ProductRepository;
 import com.nikitarizh.testtask.repository.UserRepository;
 import com.nikitarizh.testtask.service.CartService;
 import com.nikitarizh.testtask.service.MailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.nikitarizh.testtask.mapper.ProductMapper.PRODUCT_MAPPER;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
 
     private final MailService mailService;
@@ -28,15 +26,8 @@ public class CartServiceImpl implements CartService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
-
-    @Autowired
-    public CartServiceImpl(MailService mailService, ProductRepository productRepository, UserRepository userRepository) {
-        this.mailService = mailService;
-        this.productRepository = productRepository;
-        this.userRepository = userRepository;
-    }
-
     @Override
+    @Transactional
     public ProductFullDTO addItem(OrderChangeDTO orderChangeDTO) {
         Product requestedProduct = productRepository.findById(orderChangeDTO.getProductId())
                 .orElseThrow(() -> new ProductNotFoundException(orderChangeDTO.getProductId()));
@@ -54,6 +45,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public void removeItem(OrderChangeDTO orderChangeDTO) {
         Product requestedProduct = productRepository.findById(orderChangeDTO.getProductId())
                 .orElseThrow(() -> new ProductNotFoundException(orderChangeDTO.getProductId()));
@@ -65,9 +57,10 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void buyItems(UserFullDTO userFullDTO) {
-        User user = userRepository.findById(userFullDTO.getId())
-                .orElseThrow(() -> new UserNotFoundException(userFullDTO.getId()));
+    @Transactional
+    public void buyItems(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
 
         mailService.sendBuyNotification(user);
 

@@ -4,26 +4,19 @@ import com.nikitarizh.testtask.dto.product.ProductUpdateDTO;
 import com.nikitarizh.testtask.entity.Product;
 import com.nikitarizh.testtask.entity.User;
 import com.nikitarizh.testtask.service.MailService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nikitarizh.testtask.service.TagService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import java.io.File;
-
 @Service
+@RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
 
-    private final JavaMailSender javaMailSender;
+    private final TagService tagService;
 
-    @Autowired
-    public MailServiceImpl(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
+    private final JavaMailSender javaMailSender;
 
     @Override
     public void sendBuyNotification(User to) {
@@ -46,7 +39,7 @@ public class MailServiceImpl implements MailService {
         textBuilder.append("Old tags: ").append(oldProduct.getTags()).append('\n');
         textBuilder.append("-----------").append('\n');
         textBuilder.append("New description: ").append(productUpdateDTO.getDescription()).append('\n');
-        textBuilder.append("New tags: ").append(productUpdateDTO.getTags()).append('\n');
+        textBuilder.append("New tags: ").append(tagService.findAllByIds(productUpdateDTO.getTagIds())).append('\n');
 
         sendMail(to, "Product that is in your cart was changed", textBuilder.toString());
     }

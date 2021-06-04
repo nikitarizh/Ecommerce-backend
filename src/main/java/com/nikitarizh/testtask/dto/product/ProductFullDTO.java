@@ -1,7 +1,6 @@
 package com.nikitarizh.testtask.dto.product;
 
-import com.nikitarizh.testtask.entity.Product;
-import com.nikitarizh.testtask.entity.Tag;
+import com.nikitarizh.testtask.dto.tag.TagPreviewDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -12,5 +11,5 @@ public class ProductFullDTO {
 
     private String description;
 
-    private List<Tag> tags;
+    private List<TagPreviewDTO> tags;
 }
