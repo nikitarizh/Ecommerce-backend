@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    @Value("bcryptRounds")
+    @Value("${bcryptRounds}")
     private final Integer rounds;
 
     @Override
