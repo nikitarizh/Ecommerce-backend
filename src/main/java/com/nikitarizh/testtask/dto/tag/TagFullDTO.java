@@ -7,6 +7,8 @@ import java.util.List;
 
 @Data
 public class TagFullDTO {
+    private Integer id;
+
     private String value;
 
     private List<ProductFullDTO> products;
