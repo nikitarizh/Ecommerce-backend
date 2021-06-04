@@ -29,6 +29,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByNickname(String nickname) {
+        return userRepository.findByNickname(nickname)
+                .orElseThrow(() -> new UserNotFoundException(nickname));
+    }
+
+    @Override
     @Transactional
     public UserFullDTO create(UserCreateDTO userCreateDTO) {
 

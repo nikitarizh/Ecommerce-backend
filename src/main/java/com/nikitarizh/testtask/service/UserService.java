@@ -8,5 +8,7 @@ public interface UserService {
 
     UserFullDTO findById(Integer id);
 
+    User findByNickname(String nickname);
+
     UserFullDTO create(UserCreateDTO userCreateDTO);
 }
