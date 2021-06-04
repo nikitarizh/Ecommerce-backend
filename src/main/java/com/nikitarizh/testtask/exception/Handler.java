@@ -1,26 +1,42 @@
 package com.nikitarizh.testtask.exception;
 
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class Handler {
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
-    public void handle(EntityNotFoundException e) {}
+    public ResponseEntity<Object> handle(EntityNotFoundException e) {
+        return new ResponseEntity<>("Entity not found", new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ProductAlreadyInCartException.class)
-    public void handle(ProductAlreadyInCartException e) {}
+    public ResponseEntity<Object> handle(ProductAlreadyInCartException e) {
+        return new ResponseEntity<>("Product is already in cart", new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ProductIsInCartException.class)
-    public void handle(ProductIsInCartException e) {}
+    public ResponseEntity<Object> handle(ProductIsInCartException e) {
+        return new ResponseEntity<>("Product is in cart of at least one user", new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Object> handle(DataIntegrityViolationException e) {
+        return new ResponseEntity<>("Database exception. Possible duplicate", new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(CartIsEmptyException.class)
-    public void handle(CartIsEmptyException e) {}
+    public ResponseEntity<Object> handle(CartIsEmptyException e) {
+        return new ResponseEntity<>("Cart is empty", new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<Object> handle(InvalidCredentialsException e) {
+        return new ResponseEntity<>("Invalid credentials", new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+    }
 }
