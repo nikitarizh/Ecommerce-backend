@@ -5,11 +5,13 @@ import com.nikitarizh.testtask.dto.product.ProductFullDTO;
 import com.nikitarizh.testtask.dto.product.ProductUpdateDTO;
 import com.nikitarizh.testtask.exception.ProductNotFoundException;
 
+import java.util.List;
+
 public interface ProductService {
 
     ProductFullDTO findById(Integer id) throws ProductNotFoundException;
 
-    Iterable<ProductFullDTO> findAll();
+    List<ProductFullDTO> findAll();
 
     ProductFullDTO create(ProductCreateDTO productCreateDTO);
 
