@@ -3,6 +3,7 @@ package com.nikitarizh.testtask.service.impl;
 import com.nikitarizh.testtask.dto.product.ProductUpdateDTO;
 import com.nikitarizh.testtask.entity.Product;
 import com.nikitarizh.testtask.entity.User;
+import com.nikitarizh.testtask.mapper.ProductMapper;
 import com.nikitarizh.testtask.service.MailService;
 import com.nikitarizh.testtask.service.TagService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,7 @@ public class MailServiceImpl implements MailService {
         StringBuilder textBuilder = new StringBuilder();
         textBuilder.append("You have bought:").append('\n');
         for (Product product : to.getOrderedProducts()) {
-            textBuilder.append(product).append('\n');
+            textBuilder.append(ProductMapper.PRODUCT_MAPPER.mapToFullDTO(product)).append('\n');
         }
 
         sendMail(to, "Successful purchase", textBuilder.toString());
