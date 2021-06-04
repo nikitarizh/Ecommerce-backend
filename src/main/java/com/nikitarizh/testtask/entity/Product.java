@@ -3,6 +3,7 @@ package com.nikitarizh.testtask.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -14,6 +15,7 @@ public class Product {
     private Integer id;
 
     @Column(name = "description", nullable = false)
+    @NotBlank
     private String description;
 
     @ManyToMany

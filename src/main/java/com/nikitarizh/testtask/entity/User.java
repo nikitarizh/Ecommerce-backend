@@ -2,8 +2,10 @@ package com.nikitarizh.testtask.entity;
 
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -20,12 +22,15 @@ public class User {
     private UserType type = UserType.USER;
 
     @Column(name = "nickname", nullable = false)
+    @NotBlank
     private String nickname;
 
     @Column(name = "password", nullable = false)
+    @NotBlank
     private String password;
 
     @Column(name = "email", nullable = false)
+    @NotBlank
     private String email;
 
     @ManyToMany

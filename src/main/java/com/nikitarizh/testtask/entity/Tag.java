@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -16,6 +17,7 @@ public class Tag {
     private Integer id;
 
     @Column(name = "value", nullable = false)
+    @NotBlank
     private String value;
 
     @ManyToMany (mappedBy = "tags")
