@@ -17,7 +17,7 @@ public class User {
 
     @Column(name = "user_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserType type;
+    private UserType type = UserType.USER;
 
     @Column(name = "nickname", nullable = false)
     private String nickname;
