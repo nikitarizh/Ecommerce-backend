@@ -39,7 +39,6 @@ public class CartServiceImpl implements CartService {
         }
 
         user.getOrderedProducts().add(requestedProduct);
-        requestedProduct.getOrderedBy().add(user);
 
         return PRODUCT_MAPPER.mapToFullDTO(requestedProduct);
     }
@@ -53,7 +52,6 @@ public class CartServiceImpl implements CartService {
                 .orElseThrow(() -> new UserNotFoundException(orderChangeDTO.getUserId()));
 
         user.getOrderedProducts().remove(requestedProduct);
-        requestedProduct.getOrderedBy().remove(user);
     }
 
     @Override
