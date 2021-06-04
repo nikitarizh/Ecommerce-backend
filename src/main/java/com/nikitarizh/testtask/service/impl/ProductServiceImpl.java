@@ -10,6 +10,7 @@ import com.nikitarizh.testtask.exception.ProductNotFoundException;
 import com.nikitarizh.testtask.repository.ProductRepository;
 import com.nikitarizh.testtask.service.MailService;
 import com.nikitarizh.testtask.service.ProductService;
+import com.nikitarizh.testtask.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,13 +24,15 @@ import static com.nikitarizh.testtask.mapper.ProductMapper.PRODUCT_MAPPER;
 public class ProductServiceImpl implements ProductService {
 
     private final MailService mailService;
+    private final TagService tagService;
 
     private final ProductRepository productRepository;
 
     @Autowired
-    public ProductServiceImpl(MailService mailService, ProductRepository productRepository) {
+    public ProductServiceImpl(MailService mailService, ProductRepository productRepository, TagService tagService) {
         this.mailService = mailService;
         this.productRepository = productRepository;
+        this.tagService = tagService;
     }
 
     @Override
@@ -73,7 +76,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         productToUpdate.setDescription(productUpdateDTO.getDescription());
-        productToUpdate.setTags(productUpdateDTO.getTags());
+        productToUpdate.setTags(tagService.findAllByIds(productUpdateDTO.getTagIds()));
 
         return PRODUCT_MAPPER.mapToFullDTO(productToUpdate);
     }

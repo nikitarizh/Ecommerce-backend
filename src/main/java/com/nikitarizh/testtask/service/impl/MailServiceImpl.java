@@ -4,6 +4,7 @@ import com.nikitarizh.testtask.dto.product.ProductUpdateDTO;
 import com.nikitarizh.testtask.entity.Product;
 import com.nikitarizh.testtask.entity.User;
 import com.nikitarizh.testtask.service.MailService;
+import com.nikitarizh.testtask.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -12,10 +13,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailServiceImpl implements MailService {
 
+    private final TagService tagService;
+
     private final JavaMailSender javaMailSender;
 
     @Autowired
-    public MailServiceImpl(JavaMailSender javaMailSender) {
+    public MailServiceImpl(TagService tagService, JavaMailSender javaMailSender) {
+        this.tagService = tagService;
         this.javaMailSender = javaMailSender;
     }
 
@@ -40,7 +44,7 @@ public class MailServiceImpl implements MailService {
         textBuilder.append("Old tags: ").append(oldProduct.getTags()).append('\n');
         textBuilder.append("-----------").append('\n');
         textBuilder.append("New description: ").append(productUpdateDTO.getDescription()).append('\n');
-        textBuilder.append("New tags: ").append(productUpdateDTO.getTags()).append('\n');
+        textBuilder.append("New tags: ").append(tagService.findAllByIds(productUpdateDTO.getTagIds())).append('\n');
 
         sendMail(to, "Product that is in your cart was changed", textBuilder.toString());
     }
