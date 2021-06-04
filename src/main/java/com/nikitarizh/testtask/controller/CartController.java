@@ -1,6 +1,5 @@
 package com.nikitarizh.testtask.controller;
 
-import com.nikitarizh.testtask.dto.order.OrderChangeDTO;
 import com.nikitarizh.testtask.dto.product.ProductFullDTO;
 import com.nikitarizh.testtask.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -14,17 +13,17 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping
-    public ProductFullDTO addItem(@RequestBody OrderChangeDTO orderChangeDTO) {
-        return cartService.addItem(orderChangeDTO);
+    public ProductFullDTO addItem(@RequestBody Integer productId) {
+        return cartService.addItem(productId);
     }
 
     @PutMapping("/remove")
-    public void removeItem(@RequestBody OrderChangeDTO orderChangeDTO) {
-        cartService.removeItem(orderChangeDTO);
+    public void removeItem(@RequestBody Integer productId) {
+        cartService.removeItem(productId);
     }
 
     @PutMapping("/buy")
-    public void buyItems(@RequestBody Integer userId) {
-        cartService.buyItems(userId);
+    public void buyItems() {
+        cartService.buyItems();
     }
 }

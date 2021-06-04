@@ -1,13 +1,12 @@
 package com.nikitarizh.testtask.service;
 
-import com.nikitarizh.testtask.dto.order.OrderChangeDTO;
 import com.nikitarizh.testtask.dto.product.ProductFullDTO;
 
 public interface CartService {
 
-    ProductFullDTO addItem(OrderChangeDTO orderChangeDTO);
+    ProductFullDTO addItem(Integer productId);
 
-    void removeItem(OrderChangeDTO orderChangeDTO);
+    void removeItem(Integer productId);
 
-    void buyItems(Integer userId);
+    void buyItems();
 }
