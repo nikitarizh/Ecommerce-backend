@@ -4,7 +4,6 @@ import com.nikitarizh.testtask.dto.user.UserCreateDTO;
 import com.nikitarizh.testtask.dto.user.UserFullDTO;
 import com.nikitarizh.testtask.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

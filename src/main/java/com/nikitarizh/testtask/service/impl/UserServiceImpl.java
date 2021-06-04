@@ -7,7 +7,6 @@ import com.nikitarizh.testtask.exception.UserNotFoundException;
 import com.nikitarizh.testtask.repository.UserRepository;
 import com.nikitarizh.testtask.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -6,7 +6,6 @@ import com.nikitarizh.testtask.entity.User;
 import com.nikitarizh.testtask.service.MailService;
 import com.nikitarizh.testtask.service.TagService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
