@@ -6,6 +6,7 @@ import com.nikitarizh.testtask.entity.User;
 import com.nikitarizh.testtask.exception.UserNotFoundException;
 import com.nikitarizh.testtask.repository.UserRepository;
 import com.nikitarizh.testtask.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,14 +16,10 @@ import java.util.Optional;
 import static com.nikitarizh.testtask.mapper.UserMapper.USER_MAPPER;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     @Transactional(readOnly = true)

@@ -4,19 +4,16 @@ import com.nikitarizh.testtask.dto.product.ProductCreateDTO;
 import com.nikitarizh.testtask.dto.product.ProductFullDTO;
 import com.nikitarizh.testtask.dto.product.ProductUpdateDTO;
 import com.nikitarizh.testtask.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/shop")
+@RequiredArgsConstructor
 public class ShopController {
 
     private final ProductService productService;
-
-    @Autowired
-    public ShopController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping
     public Iterable<ProductFullDTO> getAll() {

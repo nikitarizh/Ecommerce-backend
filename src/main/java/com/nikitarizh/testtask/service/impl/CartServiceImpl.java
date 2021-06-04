@@ -11,6 +11,7 @@ import com.nikitarizh.testtask.repository.ProductRepository;
 import com.nikitarizh.testtask.repository.UserRepository;
 import com.nikitarizh.testtask.service.CartService;
 import com.nikitarizh.testtask.service.MailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,20 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 import static com.nikitarizh.testtask.mapper.ProductMapper.PRODUCT_MAPPER;
 
 @Service
+@RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
 
     private final MailService mailService;
 
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
-
-
-    @Autowired
-    public CartServiceImpl(MailService mailService, ProductRepository productRepository, UserRepository userRepository) {
-        this.mailService = mailService;
-        this.productRepository = productRepository;
-        this.userRepository = userRepository;
-    }
 
     @Override
     @Transactional(readOnly = true)

@@ -11,6 +11,7 @@ import com.nikitarizh.testtask.repository.ProductRepository;
 import com.nikitarizh.testtask.service.MailService;
 import com.nikitarizh.testtask.service.ProductService;
 import com.nikitarizh.testtask.service.TagService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,19 +22,13 @@ import java.util.stream.Collectors;
 import static com.nikitarizh.testtask.mapper.ProductMapper.PRODUCT_MAPPER;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final MailService mailService;
     private final TagService tagService;
 
     private final ProductRepository productRepository;
-
-    @Autowired
-    public ProductServiceImpl(MailService mailService, ProductRepository productRepository, TagService tagService) {
-        this.mailService = mailService;
-        this.productRepository = productRepository;
-        this.tagService = tagService;
-    }
 
     @Override
     @Transactional(readOnly = true)

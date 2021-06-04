@@ -5,23 +5,19 @@ import com.nikitarizh.testtask.entity.Product;
 import com.nikitarizh.testtask.entity.User;
 import com.nikitarizh.testtask.service.MailService;
 import com.nikitarizh.testtask.service.TagService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
 
     private final TagService tagService;
 
     private final JavaMailSender javaMailSender;
-
-    @Autowired
-    public MailServiceImpl(TagService tagService, JavaMailSender javaMailSender) {
-        this.tagService = tagService;
-        this.javaMailSender = javaMailSender;
-    }
 
     @Override
     public void sendBuyNotification(User to) {
