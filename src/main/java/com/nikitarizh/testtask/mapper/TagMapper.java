@@ -7,7 +7,7 @@ import com.nikitarizh.testtask.entity.Tag;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = ProductMapper.class)
+@Mapper
 public interface TagMapper {
 
     TagMapper TAG_MAPPER = Mappers.getMapper(TagMapper.class);
