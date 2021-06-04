@@ -54,6 +54,7 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public ProductFullDTO create(ProductCreateDTO productCreateDTO) {
         Product newProduct = productRepository.save(PRODUCT_MAPPER.mapToEntity(productCreateDTO));
+        newProduct.setTags(tagService.findAllByIds(productCreateDTO.getTagIds()));
         return PRODUCT_MAPPER.mapToFullDTO(newProduct);
     }
 
