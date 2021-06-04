@@ -2,7 +2,6 @@ package com.nikitarizh.testtask.entity;
 
 import lombok.Data;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -19,9 +18,9 @@ public class User {
 
     @Column(name = "user_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    private UserType type = UserType.USER;
+    private UserType type = UserType.ROLE_USER;
 
-    @Column(name = "nickname", nullable = false)
+    @Column(name = "nickname", nullable = false, unique = true)
     @NotBlank
     private String nickname;
 
