@@ -40,9 +40,9 @@
             (
             product_id int not null,
             tag_id int not null,
-            constraint FKeybx0aj781vhg3j2wn8utdfvv
+            constraint FK_product_product_tag
             foreign key (product_id) references products (id),
-            constraint FKgp9r9cogdtnjbwn6rw2dv0o00
+            constraint FK_tag_product_tag
             foreign key (tag_id) references tags (id)
             );
         </sql>
@@ -52,9 +52,9 @@
             (
             user_id int not null,
             product_id int not null,
-            constraint FKctnnp6lvp5tkjb6fm0k0gmhns
+            constraint FK_user_user_product
             foreign key (user_id) references users (id),
-            constraint FKsu8beo945wpgaux2kwu677srs
+            constraint FK_product_user_product
             foreign key (product_id) references products (id)
             );
         </sql>
