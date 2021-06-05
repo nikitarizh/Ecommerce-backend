@@ -9,7 +9,7 @@ public interface MailService {
 
     void sendBuyNotification(User to);
 
-    void sendProductUpdateNotification(User to, Product oldProduct, ProductUpdateDTO productUpdateDTO);
+    void sendProductUpdateNotification(User to, ProductFullDTO oldProduct, ProductUpdateDTO productUpdateDTO);
 
-    void sendProductDeleteNotification(User to, Product product);
+    void sendProductDeleteNotification(User to, ProductFullDTO product);
 }

@@ -32,7 +32,7 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendProductUpdateNotification(User to, Product oldProduct, ProductUpdateDTO productUpdateDTO) {
+    public void sendProductUpdateNotification(User to, ProductFullDTO oldProduct, ProductUpdateDTO productUpdateDTO) {
         StringBuilder textBuilder = new StringBuilder();
 
         textBuilder.append("Product with id ").append(oldProduct.getId()).append(" was changed").append('\n');
@@ -47,7 +47,7 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendProductDeleteNotification(User to, Product product) {
+    public void sendProductDeleteNotification(User to, ProductFullDTO product) {
         sendMail(to, "Product was deleted from your cart", "Product " + product + " was deleted from your cart because it was deleted from the catalogue");
     }
 

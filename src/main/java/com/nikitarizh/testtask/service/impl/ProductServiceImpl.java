@@ -64,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         for (User buyer : productToUpdate.getOrderedBy()) {
-            mailService.sendProductUpdateNotification(buyer, productToUpdate, productUpdateDTO);
+            mailService.sendProductUpdateNotification(buyer, PRODUCT_MAPPER.mapToFullDTO(productToUpdate), productUpdateDTO);
         }
 
         productToUpdate.setDescription(productUpdateDTO.getDescription());
