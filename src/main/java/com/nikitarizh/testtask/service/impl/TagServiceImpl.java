@@ -5,6 +5,7 @@ import com.nikitarizh.testtask.dto.tag.TagFullDTO;
 import com.nikitarizh.testtask.dto.tag.TagPreviewDTO;
 import com.nikitarizh.testtask.dto.tag.TagUpdateDTO;
 import com.nikitarizh.testtask.entity.Tag;
+import com.nikitarizh.testtask.exception.TagIsUsedException;
 import com.nikitarizh.testtask.exception.TagNotFoundException;
 import com.nikitarizh.testtask.repository.TagRepository;
 import com.nikitarizh.testtask.service.TagService;
@@ -70,6 +71,13 @@ public class TagServiceImpl implements TagService {
     @Override
     @Transactional
     public void delete(Integer id) {
+        Tag tagToDelete = tagRepository.findById(id)
+                .orElseThrow(() -> new TagNotFoundException(id));
+
+        if (tagToDelete.getProducts().size() > 0) {
+            throw new TagIsUsedException(tagToDelete);
+        }
+
         tagRepository.deleteById(id);
     }
 }
