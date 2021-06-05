@@ -43,7 +43,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getType().toString()));
+        authorities.add(new SimpleGrantedAuthority(user.getRole().toString()));
 
         return new UsernamePasswordAuthenticationToken(nickname, password, authorities);
     }
