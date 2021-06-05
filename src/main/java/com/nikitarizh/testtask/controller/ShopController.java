@@ -7,6 +7,8 @@ import com.nikitarizh.testtask.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/shops")
 @RequiredArgsConstructor
@@ -14,9 +16,10 @@ public class ShopController {
 
     private final ProductService productService;
 
-    @GetMapping
-    public Iterable<ProductFullDTO> getAll() {
-        return productService.findAll();
+    @GetMapping()
+    public Iterable<ProductFullDTO> getAll(@RequestParam(required = false) String description,
+                                           @RequestParam(required = false) List<Integer> tagIds) {
+        return productService.search(description, tagIds);
     }
 
     @PostMapping

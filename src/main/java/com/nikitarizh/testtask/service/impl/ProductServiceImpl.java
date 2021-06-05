@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.nikitarizh.testtask.mapper.ProductMapper.PRODUCT_MAPPER;
@@ -73,6 +72,20 @@ public class ProductServiceImpl implements ProductService {
         productToUpdate.setTags(tagService.findAllByIds(productUpdateDTO.getTagIds()));
 
         return PRODUCT_MAPPER.mapToFullDTO(productToUpdate);
+    }
+
+    @Override
+    public List<ProductFullDTO> search(String description, List<Integer> tagIds) {
+        List<ProductFullDTO> output = productRepository.search(description, tagIds)
+                .stream()
+                .map(PRODUCT_MAPPER::mapToFullDTO)
+                .collect(Collectors.toList());
+
+        if (output.size() == 0) {
+            throw new ProductNotFoundException(description, tagIds);
+        }
+
+        return output;
     }
 
     @Override

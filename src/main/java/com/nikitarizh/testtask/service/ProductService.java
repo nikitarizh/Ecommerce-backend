@@ -16,5 +16,7 @@ public interface ProductService {
 
     ProductFullDTO update(ProductUpdateDTO productUpdateDTO, boolean force);
 
+    List<ProductFullDTO> search(String description, List<Integer> tagIds);
+
     void delete(Integer productId);
 }
