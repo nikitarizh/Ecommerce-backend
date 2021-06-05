@@ -30,6 +30,11 @@ public class Handler {
         return new ResponseEntity<>("Database exception. Possible duplicate", new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(TagIsUsedException.class)
+    public ResponseEntity<Object> handle(TagIsUsedException e) {
+        return new ResponseEntity<>("Tag is used", new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(CartIsEmptyException.class)
     public ResponseEntity<Object> handle(CartIsEmptyException e) {
         return new ResponseEntity<>("Cart is empty", new HttpHeaders(), HttpStatus.NOT_FOUND);
