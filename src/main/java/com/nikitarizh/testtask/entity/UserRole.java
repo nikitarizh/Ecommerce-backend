@@ -1,6 +1,6 @@
 package com.nikitarizh.testtask.entity;
 
-public enum UserType {
+public enum UserRole {
     ROLE_USER,
     ROLE_ADMIN
 }
