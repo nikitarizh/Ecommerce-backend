@@ -32,9 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-### Properties ###
-src/main/resources/application.properties
-
 ### MAVEN ###
 .mvn/
 mvnw
