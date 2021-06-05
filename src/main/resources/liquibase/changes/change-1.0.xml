@@ -1,0 +1,62 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                           http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="1.0.0" author="nikita">
+        <sql>
+            create table products
+            (
+            id int not null auto_increment
+            primary key,
+            description varchar(255) not null
+            );
+        </sql>
+
+        <sql>
+            create table tags
+            (
+            id int not null auto_increment
+            primary key,
+            value varchar(255) not null
+            );
+        </sql>
+
+        <sql>
+            create table users
+            (
+            id int not null auto_increment
+            primary key,
+            email varchar(255) not null,
+            nickname varchar(255) not null unique,
+            password varchar(255) not null,
+            user_type varchar(255) not null
+            );
+        </sql>
+
+        <sql>
+            create table product_tag
+            (
+            product_id int not null,
+            tag_id int not null,
+            constraint FKeybx0aj781vhg3j2wn8utdfvv
+            foreign key (product_id) references products (id),
+            constraint FKgp9r9cogdtnjbwn6rw2dv0o00
+            foreign key (tag_id) references tags (id)
+            );
+        </sql>
+
+        <sql>
+            create table user_product
+            (
+            user_id int not null,
+            product_id int not null,
+            constraint FKctnnp6lvp5tkjb6fm0k0gmhns
+            foreign key (user_id) references users (id),
+            constraint FKsu8beo945wpgaux2kwu677srs
+            foreign key (product_id) references products (id)
+            );
+        </sql>
+    </changeSet>
+</databaseChangeLog>
