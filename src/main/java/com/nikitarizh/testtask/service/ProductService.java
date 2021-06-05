@@ -18,5 +18,5 @@ public interface ProductService {
 
     List<ProductFullDTO> search(String description, List<Integer> tagIds);
 
-    void delete(Integer productId);
+    void delete(Integer productId, boolean force);
 }

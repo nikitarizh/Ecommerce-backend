@@ -89,7 +89,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public void delete(Integer productId) {
+    public void delete(Integer productId, boolean force) {
+        Product productToDelete = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
+
+        if (!force && productToDelete.getOrderedBy().size() > 0) {
+            throw new ProductIsInCartException(productToDelete);
+        }
+
+        for (User buyer : productToDelete.getOrderedBy()) {
+            mailService.sendProductDeleteNotification(buyer, PRODUCT_MAPPER.mapToFullDTO(productToDelete));
+            buyer.getOrderedProducts().remove(productToDelete);
+        }
+
         productRepository.deleteById(productId);
     }
 }
