@@ -2,6 +2,7 @@ package com.nikitarizh.testtask.provider;
 
 import com.nikitarizh.testtask.entity.User;
 import com.nikitarizh.testtask.exception.InvalidCredentialsException;
+import com.nikitarizh.testtask.exception.UserNotFoundException;
 import com.nikitarizh.testtask.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -28,7 +29,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String nickname = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        User user = userService.findByNickname(nickname);
+        User user;
+        try {
+            user = userService.findByNickname(nickname);
+        }
+        catch (UserNotFoundException e) {
+            throw new InvalidCredentialsException();
+        }
+
         if (!(new BCryptPasswordEncoder().matches(password, user.getPassword()))) {
             throw new InvalidCredentialsException();
         }
