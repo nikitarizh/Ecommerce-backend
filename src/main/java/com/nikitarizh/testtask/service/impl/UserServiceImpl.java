@@ -18,6 +18,7 @@ import static com.nikitarizh.testtask.mapper.UserMapper.USER_MAPPER;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     @Transactional(readOnly = true)
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
         User newUser = userRepository.save(USER_MAPPER.mapToEntity(userCreateDTO));
 
-        String hashedPassword = new BCryptPasswordEncoder().encode(userCreateDTO.getPassword());
+        String hashedPassword = bCryptPasswordEncoder.encode(userCreateDTO.getPassword());
         newUser.setPassword(hashedPassword);
 
         return USER_MAPPER.mapToFullDTO(newUser);

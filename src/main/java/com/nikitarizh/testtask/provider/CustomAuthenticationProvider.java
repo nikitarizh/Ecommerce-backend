@@ -22,6 +22,7 @@ import java.util.List;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final UserService userService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -37,7 +38,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new InvalidCredentialsException();
         }
 
-        if (!(new BCryptPasswordEncoder().matches(password, user.getPassword()))) {
+        if (!(bCryptPasswordEncoder.matches(password, user.getPassword()))) {
             throw new InvalidCredentialsException();
         }
 
