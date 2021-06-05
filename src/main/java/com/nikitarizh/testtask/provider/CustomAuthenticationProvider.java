@@ -35,7 +35,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(user.getType().toString()));
-        System.out.println(authorities);
 
         return new UsernamePasswordAuthenticationToken(nickname, password, authorities);
     }
