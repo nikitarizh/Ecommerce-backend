@@ -1,5 +1,6 @@
 package com.nikitarizh.testtask.service.impl;
 
+import com.nikitarizh.testtask.dto.product.ProductFullDTO;
 import com.nikitarizh.testtask.dto.product.ProductUpdateDTO;
 import com.nikitarizh.testtask.entity.Product;
 import com.nikitarizh.testtask.entity.User;
@@ -43,6 +44,11 @@ public class MailServiceImpl implements MailService {
         textBuilder.append("New tags: ").append(tagService.findAllByIds(productUpdateDTO.getTagIds())).append('\n');
 
         sendMail(to, "Product that is in your cart was changed", textBuilder.toString());
+    }
+
+    @Override
+    public void sendProductDeleteNotification(User to, Product product) {
+        sendMail(to, "Product was deleted from your cart", "Product " + product + " was deleted from your cart because it was deleted from the catalogue");
     }
 
     void sendMail(User to, String subj, String text) {
