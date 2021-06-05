@@ -40,6 +40,11 @@ public class ShopController {
 
     @DeleteMapping("/{productId}")
     public void delete(@PathVariable Integer productId) {
-        productService.delete(productId);
+        productService.delete(productId, false);
+    }
+
+    @DeleteMapping("/force/{productId}")
+    public void forceDelete(@PathVariable Integer productId) {
+        productService.delete(productId, true);
     }
 }
