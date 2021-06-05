@@ -23,10 +23,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public UserFullDTO findById(Integer id) {
-        return USER_MAPPER.mapToFullDTO(
-                userRepository.findById(id)
-                        .orElseThrow(() -> new UserNotFoundException(id))
-        );
+        User result = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+        return USER_MAPPER.mapToFullDTO(result);
     }
 
     @Override
