@@ -7,6 +7,7 @@ import com.nikitarizh.testtask.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,12 +23,12 @@ public class TagController {
     }
 
     @PostMapping
-    public TagPreviewDTO create(@RequestBody TagCreateDTO tagCreateDTO) {
+    public TagPreviewDTO create(@Valid @RequestBody TagCreateDTO tagCreateDTO) {
         return tagService.create(tagCreateDTO);
     }
 
     @PutMapping
-    public TagPreviewDTO update(@RequestBody TagUpdateDTO tagUpdateDTO) {
+    public TagPreviewDTO update(@Valid @RequestBody TagUpdateDTO tagUpdateDTO) {
         return tagService.update(tagUpdateDTO);
     }
 

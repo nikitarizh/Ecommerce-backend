@@ -21,15 +21,12 @@ public class User {
     private UserRole role = UserRole.ROLE_USER;
 
     @Column(name = "nickname", nullable = false, unique = true)
-    @NotBlank
     private String nickname;
 
     @Column(name = "password", nullable = false)
-    @NotBlank
     private String password;
 
     @Column(name = "email", nullable = false)
-    @NotBlank
     private String email;
 
     @ManyToMany
