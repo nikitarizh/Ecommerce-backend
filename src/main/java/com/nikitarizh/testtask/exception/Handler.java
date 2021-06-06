@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class Handler {
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Object> handle(EntityNotFoundException e) {
-        return new ResponseEntity<>("Entity not found", new HttpHeaders(), HttpStatus.NOT_FOUND);
-    }
-
     @ExceptionHandler(ProductAlreadyInCartException.class)
     public ResponseEntity<Object> handle(ProductAlreadyInCartException e) {
         return new ResponseEntity<>("Product is already in cart", new HttpHeaders(), HttpStatus.BAD_REQUEST);
@@ -33,6 +28,11 @@ public class Handler {
     @ExceptionHandler(TagIsUsedException.class)
     public ResponseEntity<Object> handle(TagIsUsedException e) {
         return new ResponseEntity<>("Tag is used", new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handle(EntityNotFoundException e) {
+        return new ResponseEntity<>("Entity not found", new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CartIsEmptyException.class)
