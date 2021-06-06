@@ -3,7 +3,6 @@ package com.nikitarizh.testtask.service.impl;
 import com.nikitarizh.testtask.dto.tag.TagCreateDTO;
 import com.nikitarizh.testtask.dto.tag.TagFullDTO;
 import com.nikitarizh.testtask.dto.tag.TagPreviewDTO;
-import com.nikitarizh.testtask.dto.tag.TagUpdateDTO;
 import com.nikitarizh.testtask.entity.Tag;
 import com.nikitarizh.testtask.exception.TagIsUsedException;
 import com.nikitarizh.testtask.exception.TagNotFoundException;
@@ -55,17 +54,6 @@ public class TagServiceImpl implements TagService {
     public TagPreviewDTO create(TagCreateDTO tagCreateDTO) {
         Tag newTag = tagRepository.save(TAG_MAPPER.mapToEntity(tagCreateDTO));
         return TAG_MAPPER.mapToPreviewDTO(newTag);
-    }
-
-    @Override
-    @Transactional
-    public TagPreviewDTO update(TagUpdateDTO tagUpdateDTO) {
-        Tag tagToUpdate = tagRepository.findById(tagUpdateDTO.getId())
-                .orElseThrow(() -> new TagNotFoundException(tagUpdateDTO.getId()));
-
-        tagToUpdate.setValue(tagUpdateDTO.getValue());
-
-        return TAG_MAPPER.mapToPreviewDTO(tagToUpdate);
     }
 
     @Override
