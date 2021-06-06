@@ -40,6 +40,11 @@ public class Handler {
         return new ResponseEntity<>("Cart is empty", new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ProductWasNotInCart.class)
+    public ResponseEntity<Object> handle(ProductWasNotInCart e) {
+        return new ResponseEntity<>("Product was not in cart", new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(InvalidCredentialsException.class)
     public ResponseEntity<Object> handle(InvalidCredentialsException e) {
         return new ResponseEntity<>("Invalid credentials", new HttpHeaders(), HttpStatus.UNAUTHORIZED);
