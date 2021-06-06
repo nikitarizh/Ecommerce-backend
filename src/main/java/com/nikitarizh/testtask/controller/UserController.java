@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -31,5 +28,16 @@ public class UserController {
     })
     public UserFullDTO register(@Valid @RequestBody UserCreateDTO userCreateDTO) {
         return userService.create(userCreateDTO);
+    }
+
+    @PutMapping("/admins")
+    @ApiOperation(value = "Authorize user to be an admin")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "User is authorized to be admin"),
+            @ApiResponse(code = 401, message = "Unauthorized access"),
+            @ApiResponse(code = 404, message = "User with specified id doesn't exist")
+    })
+    public UserFullDTO addAdmin(@RequestBody Integer userId) {
+        return userService.addAdmin(userId);
     }
 }

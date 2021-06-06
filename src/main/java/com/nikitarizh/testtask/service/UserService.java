@@ -11,4 +11,6 @@ public interface UserService {
     User findByNickname(String nickname);
 
     UserFullDTO create(UserCreateDTO userCreateDTO);
+
+    UserFullDTO addAdmin(Integer userId);
 }

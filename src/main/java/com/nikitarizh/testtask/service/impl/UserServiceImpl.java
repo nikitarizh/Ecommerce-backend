@@ -3,6 +3,7 @@ package com.nikitarizh.testtask.service.impl;
 import com.nikitarizh.testtask.dto.user.UserCreateDTO;
 import com.nikitarizh.testtask.dto.user.UserFullDTO;
 import com.nikitarizh.testtask.entity.User;
+import com.nikitarizh.testtask.entity.UserRole;
 import com.nikitarizh.testtask.exception.UserNotFoundException;
 import com.nikitarizh.testtask.repository.UserRepository;
 import com.nikitarizh.testtask.service.UserService;
@@ -44,5 +45,17 @@ public class UserServiceImpl implements UserService {
         newUser.setPassword(hashedPassword);
 
         return USER_MAPPER.mapToFullDTO(newUser);
+    }
+
+    @Override
+    @Transactional
+    public UserFullDTO addAdmin(Integer userId) {
+
+        User userToUpdate = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+
+        userToUpdate.setRole(UserRole.ROLE_ADMIN);
+
+        return USER_MAPPER.mapToFullDTO(userToUpdate);
     }
 }
