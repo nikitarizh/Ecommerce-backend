@@ -8,9 +8,12 @@ import com.nikitarizh.testtask.exception.UserNotFoundException;
 import com.nikitarizh.testtask.repository.UserRepository;
 import com.nikitarizh.testtask.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.nikitarizh.testtask.mapper.UserMapper.USER_MAPPER;
 
@@ -19,7 +22,15 @@ import static com.nikitarizh.testtask.mapper.UserMapper.USER_MAPPER;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder bCryptPasswordEncoder;
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserFullDTO> findAll() {
+        return userRepository.findAll().stream()
+                .map(USER_MAPPER::mapToFullDTO)
+                .collect(Collectors.toList());
+    }
 
     @Override
     @Transactional(readOnly = true)
