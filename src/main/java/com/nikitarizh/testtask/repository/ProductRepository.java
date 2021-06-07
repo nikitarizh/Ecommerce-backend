@@ -12,8 +12,8 @@ import java.util.Set;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query(nativeQuery = true, value = "SELECT * FROM products p " +
-            "JOIN product_tag pt ON p.id = pt.product_id " +
-            "JOIN tags t ON t.id = pt.tag_id " +
+            "LEFT JOIN product_tag pt ON p.id = pt.product_id " +
+            "LEFT JOIN tags t ON t.id = pt.tag_id " +
             "WHERE " +
             " (:description IS NULL OR p.description LIKE %:description%) " +
             "   AND " +
