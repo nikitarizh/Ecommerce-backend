@@ -6,6 +6,8 @@ import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/carts")
 @RequiredArgsConstructor
@@ -13,6 +15,16 @@ import org.springframework.web.bind.annotation.*;
 public class CartController {
 
     private final CartService cartService;
+
+    @GetMapping
+    @ApiOperation(value = "Get cart of authenticated user")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 401, message = "Unauthorized access")
+    })
+    public List<ProductFullDTO> getCart() {
+        return cartService.getCart();
+    }
 
     @PostMapping
     @ApiOperation(value = "Add product to the cart")
