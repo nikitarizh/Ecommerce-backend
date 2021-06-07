@@ -10,8 +10,6 @@ public interface ProductService {
 
     ProductFullDTO findById(Integer id);
 
-    List<ProductFullDTO> findAll();
-
     ProductFullDTO create(ProductCreateDTO productCreateDTO);
 
     ProductFullDTO update(ProductUpdateDTO productUpdateDTO, boolean force);

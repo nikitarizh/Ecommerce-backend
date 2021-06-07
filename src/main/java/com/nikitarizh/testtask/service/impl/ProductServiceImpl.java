@@ -38,14 +38,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<ProductFullDTO> findAll() {
-        return productRepository.findAll().stream()
-                .map(PRODUCT_MAPPER::mapToFullDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     @Transactional
     public ProductFullDTO create(ProductCreateDTO productCreateDTO) {
         Product newProduct = productRepository.save(PRODUCT_MAPPER.mapToEntity(productCreateDTO));
