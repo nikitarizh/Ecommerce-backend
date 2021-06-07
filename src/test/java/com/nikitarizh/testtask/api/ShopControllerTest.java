@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.util.Base64Utils;
 
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,10 +74,16 @@ public class ShopControllerTest extends AbstractTest {
 
     @Test
     public void findAll_noData() throws Exception {
-        // WHEN / THEN
-        mockMvc.perform(get(BASE_URL + "/shops"))
-                .andExpect(status().isNotFound())
+        // WHEN
+        MvcResult mvcResult = mockMvc.perform(get(BASE_URL + "/shops"))
+                .andExpect(status().isOk())
                 .andReturn();
+
+        byte[] content = mvcResult.getResponse().getContentAsByteArray();
+        List<ProductFullDTO> foundProducts = objectMapper.readValue(content, new TypeReference<>() {});
+
+        // THEN
+        assertEquals(new LinkedList<>(), foundProducts);
     }
 
     @Test
