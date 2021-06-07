@@ -15,6 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.nikitarizh.testtask.mapper.ProductMapper.PRODUCT_MAPPER;
 
 @Service
@@ -25,6 +28,15 @@ public class CartServiceImpl implements CartService {
     private final AuthService authService;
 
     private final ProductRepository productRepository;
+
+    @Override
+    public List<ProductFullDTO> getCart() {
+        User authenticatedUser = authService.getAuthenticatedUser();
+
+        return authenticatedUser.getOrderedProducts().stream()
+                .map(PRODUCT_MAPPER::mapToFullDTO)
+                .collect(Collectors.toList());
+    }
 
     @Override
     @Transactional
