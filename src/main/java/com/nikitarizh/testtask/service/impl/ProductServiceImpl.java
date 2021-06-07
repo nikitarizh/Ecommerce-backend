@@ -102,6 +102,8 @@ public class ProductServiceImpl implements ProductService {
             buyer.getOrderedProducts().remove(productToDelete);
         }
 
+        productToDelete.getTags().clear();
+
         productRepository.deleteById(productId);
     }
 }
