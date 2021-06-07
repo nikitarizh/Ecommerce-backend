@@ -12,6 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static com.nikitarizh.testtask.mapper.UserMapper.USER_MAPPER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -39,6 +42,30 @@ public class UserServiceTest extends AbstractTest {
 
         // THEN
         assertEquals(generatedFullDTO, foundUserDTO);
+    }
+
+    @Test
+    public void findAll_happyPath() {
+        // GIVEN
+        User generatedUser = dataManipulator.saveUser(DataGenerator.generateValidUser());
+        UserFullDTO generatedFullDTO = USER_MAPPER.mapToFullDTO(generatedUser);
+        List<UserFullDTO> generatedOutput = new LinkedList<>();
+        generatedOutput.add(generatedFullDTO);
+
+        // WHEN
+        List<UserFullDTO> foundUserDTOs = userService.findAll();
+
+        // THEN
+        assertEquals(generatedOutput, foundUserDTOs);
+    }
+
+    @Test
+    public void findAll_noDataHappyPath() {
+        // WHEN
+        List<UserFullDTO> foundUserDTOs = userService.findAll();
+
+        // THEN
+        assertEquals(new LinkedList<>(), foundUserDTOs);
     }
 
     @Test
