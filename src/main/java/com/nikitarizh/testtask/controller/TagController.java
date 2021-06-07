@@ -36,6 +36,7 @@ public class TagController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Tag is created"),
             @ApiResponse(code = 400, message = "Bad DTO"),
+            @ApiResponse(code = 403, message = "Access forbidden"),
             @ApiResponse(code = 401, message = "Unauthorized access"),
     })
     public TagPreviewDTO create(@Valid @RequestBody TagCreateDTO tagCreateDTO) {
@@ -48,6 +49,7 @@ public class TagController {
             @ApiResponse(code = 200, message = "Tag is deleted"),
             @ApiResponse(code = 400, message = "Bad DTO or product that is in cart of at least one user has this tag"),
             @ApiResponse(code = 401, message = "Unauthorized access"),
+            @ApiResponse(code = 403, message = "Access forbidden"),
             @ApiResponse(code = 404, message = "Tag with specified id doesn't exist")
     })
     public void delete(@PathVariable Integer tagId) {
@@ -60,6 +62,7 @@ public class TagController {
             @ApiResponse(code = 200, message = "Tag is deleted"),
             @ApiResponse(code = 400, message = "Bad DTO or product that is in cart of at least one user has this tag"),
             @ApiResponse(code = 401, message = "Unauthorized access"),
+            @ApiResponse(code = 403, message = "Access forbidden"),
             @ApiResponse(code = 404, message = "Tag with specified id doesn't exist")
     })
     public void forceDelete(@PathVariable Integer tagId) {

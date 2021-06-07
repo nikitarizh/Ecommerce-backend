@@ -39,6 +39,7 @@ public class ShopController {
             @ApiResponse(code = 200, message = "Product is created"),
             @ApiResponse(code = 400, message = "Bad DTO"),
             @ApiResponse(code = 401, message = "Unauthorized access"),
+            @ApiResponse(code = 403, message = "Access forbidden"),
     })
     public ProductFullDTO create(@Valid @RequestBody ProductCreateDTO productCreateDTO) {
         return productService.create(productCreateDTO);
@@ -50,6 +51,7 @@ public class ShopController {
             @ApiResponse(code = 200, message = "Item is updated"),
             @ApiResponse(code = 400, message = "Bad DTO or item is in cart of at least one user"),
             @ApiResponse(code = 401, message = "Unauthorized access"),
+            @ApiResponse(code = 403, message = "Access forbidden"),
             @ApiResponse(code = 404, message = "Product with specified id doesn't exist")
     })
     public ProductFullDTO update(@Valid @RequestBody ProductUpdateDTO productUpdateDTO) {
@@ -62,6 +64,7 @@ public class ShopController {
             @ApiResponse(code = 200, message = "Item is updated"),
             @ApiResponse(code = 400, message = "Bad DTO"),
             @ApiResponse(code = 401, message = "Unauthorized access"),
+            @ApiResponse(code = 403, message = "Access forbidden"),
             @ApiResponse(code = 404, message = "Product with specified id doesn't exist")
     })
     public ProductFullDTO forceUpdate(@Valid @RequestBody ProductUpdateDTO productUpdateDTO) {
@@ -74,6 +77,7 @@ public class ShopController {
             @ApiResponse(code = 200, message = "Item is deleted"),
             @ApiResponse(code = 400, message = "Bad DTO or item is in cart of at least one user"),
             @ApiResponse(code = 401, message = "Unauthorized access"),
+            @ApiResponse(code = 403, message = "Access forbidden"),
             @ApiResponse(code = 404, message = "Product with specified id doesn't exist")
     })
     public void delete(@PathVariable Integer productId) {
@@ -86,6 +90,7 @@ public class ShopController {
             @ApiResponse(code = 200, message = "Item is deleted"),
             @ApiResponse(code = 400, message = "Bad DTO"),
             @ApiResponse(code = 401, message = "Unauthorized access"),
+            @ApiResponse(code = 403, message = "Access forbidden"),
             @ApiResponse(code = 404, message = "Product with specified id doesn't exist")
     })
     public void forceDelete(@PathVariable Integer productId) {
