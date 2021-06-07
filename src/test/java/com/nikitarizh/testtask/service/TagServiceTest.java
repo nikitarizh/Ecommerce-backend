@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,16 @@ public class TagServiceTest extends AbstractTest {
 
         // THEN
         assertEquals(generatedDTOs, foundDTOs);
+    }
+
+    @Test
+    @Transactional
+    public void findAll_noDataHappyPath() {
+        // WHEN
+        List<TagPreviewDTO> foundDTOs = tagService.findAll();
+
+        // THEN
+        assertEquals(new LinkedList<>(), foundDTOs);
     }
 
     @Test
