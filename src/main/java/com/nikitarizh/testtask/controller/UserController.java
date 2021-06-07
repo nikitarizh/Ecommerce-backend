@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -28,6 +29,28 @@ public class UserController {
     })
     public UserFullDTO register(@Valid @RequestBody UserCreateDTO userCreateDTO) {
         return userService.create(userCreateDTO);
+    }
+
+    @GetMapping
+    @ApiOperation(value = "List all users")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 401, message = "Unauthorized access"),
+            @ApiResponse(code = 403, message = "Access forbidden"),
+    })
+    public List<UserFullDTO> getAll() {
+        return userService.findAll();
+    }
+
+    @GetMapping("/{userId}")
+    @ApiOperation(value = "Find user by id")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = ""),
+            @ApiResponse(code = 401, message = "Unauthorized access"),
+            @ApiResponse(code = 403, message = "Access forbidden"),
+    })
+    public UserFullDTO getById(@PathVariable Integer userId) {
+        return userService.findById(userId);
     }
 
     @PutMapping("/admins")
