@@ -8,7 +8,6 @@ import com.nikitarizh.testtask.exception.ProductAlreadyInCartException;
 import com.nikitarizh.testtask.exception.ProductNotFoundException;
 import com.nikitarizh.testtask.exception.ProductWasNotInCart;
 import com.nikitarizh.testtask.repository.ProductRepository;
-import com.nikitarizh.testtask.repository.UserRepository;
 import com.nikitarizh.testtask.service.AuthService;
 import com.nikitarizh.testtask.service.CartService;
 import com.nikitarizh.testtask.service.MailService;
