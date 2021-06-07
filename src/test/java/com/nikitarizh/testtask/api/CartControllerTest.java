@@ -1,5 +1,6 @@
 package com.nikitarizh.testtask.api;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nikitarizh.testtask.AbstractTest;
 import com.nikitarizh.testtask.dto.product.ProductFullDTO;
@@ -15,9 +16,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -28,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import static com.nikitarizh.testtask.mapper.TagMapper.TAG_MAPPER;
+import static com.nikitarizh.testtask.mapper.ProductMapper.PRODUCT_MAPPER;
 
 public class CartControllerTest extends AbstractTest {
 
@@ -48,6 +53,71 @@ public class CartControllerTest extends AbstractTest {
         this.objectMapper = objectMapper;
         this.productRepository = productRepository;
         this.userRepository = userRepository;
+    }
+
+    @Test
+    @Transactional
+    public void getCart_happyPath() throws Exception {
+        // GIVEN
+        Product product = dataManipulator.saveProduct(DataGenerator.generateValidProduct());
+        User user = dataManipulator.saveAdmin(DataGenerator.generateValidUser());
+        user.getOrderedProducts().add(product);
+        List<ProductFullDTO> cart = user.getOrderedProducts().stream()
+                .map(PRODUCT_MAPPER::mapToFullDTO)
+                .collect(Collectors.toList());
+        String userCredentials = user.getNickname() + ":" + "rootroot1";
+
+        // WHEN
+        MvcResult mvcResult = mockMvc.perform(get(BASE_URL + "/carts")
+                .header(HttpHeaders.AUTHORIZATION,
+                        "Basic " + Base64Utils.encodeToString(userCredentials.getBytes(StandardCharsets.UTF_8)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(product.getId().toString()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        byte[] content = mvcResult.getResponse().getContentAsByteArray();
+        List<ProductFullDTO> responseCart = objectMapper.readValue(content, new TypeReference<>() {});
+
+        // THEN
+        assertEquals(cart, responseCart);
+    }
+
+    @Test
+    public void getCart_noDataHappyPath() throws Exception {
+        // GIVEN
+        Product product = dataManipulator.saveProduct(DataGenerator.generateValidProduct());
+        User user = dataManipulator.saveAdmin(DataGenerator.generateValidUser());
+        String userCredentials = user.getNickname() + ":" + "rootroot1";
+
+        // WHEN
+        MvcResult mvcResult = mockMvc.perform(get(BASE_URL + "/carts")
+                .header(HttpHeaders.AUTHORIZATION,
+                        "Basic " + Base64Utils.encodeToString(userCredentials.getBytes(StandardCharsets.UTF_8)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(product.getId().toString()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        byte[] content = mvcResult.getResponse().getContentAsByteArray();
+        List<ProductFullDTO> responseCart = objectMapper.readValue(content, new TypeReference<>() {});
+
+        // THEN
+        assertEquals(new LinkedList<>(), responseCart);
+    }
+
+    @Test
+    public void getCart_unauthorized() throws Exception {
+        // GIVEN
+        Product product = dataManipulator.saveProduct(DataGenerator.generateValidProduct());
+        User user = dataManipulator.saveAdmin(DataGenerator.generateValidUser());
+        user.getOrderedProducts().add(product);
+        // WHEN / THEN
+        mockMvc.perform(get(BASE_URL + "/carts")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(product.getId().toString()))
+                .andExpect(status().isUnauthorized())
+                .andReturn();
     }
 
     @Test
