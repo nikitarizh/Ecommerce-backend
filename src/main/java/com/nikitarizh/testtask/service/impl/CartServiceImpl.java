@@ -26,7 +26,6 @@ public class CartServiceImpl implements CartService {
     private final AuthService authService;
 
     private final ProductRepository productRepository;
-    private final UserRepository userRepository;
 
     @Override
     @Transactional
@@ -55,7 +54,7 @@ public class CartServiceImpl implements CartService {
 
         if (!user.getOrderedProducts().remove(requestedProduct)) {
             throw new ProductWasNotInCart(requestedProduct, user);
-        };
+        }
     }
 
     @Override
