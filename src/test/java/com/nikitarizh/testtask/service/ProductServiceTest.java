@@ -54,6 +54,16 @@ public class ProductServiceTest extends AbstractTest {
 
     @Test
     @Transactional
+    public void findAll_noDataHappyPath() {
+        // WHEN
+        List<ProductFullDTO> foundDTOs = productService.search(null, null);
+
+        // THEN
+        assertEquals(new LinkedList<>(), foundDTOs);
+    }
+
+    @Test
+    @Transactional
     public void findById_happyPath() {
         // GIVEN
         Product generatedProduct = dataManipulator.saveProduct(DataGenerator.generateValidProduct());
