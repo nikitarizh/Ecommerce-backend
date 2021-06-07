@@ -72,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
                 .map(PRODUCT_MAPPER::mapToFullDTO)
                 .collect(Collectors.toList());
 
-        if (output.size() == 0) {
+        if ((description != null || tagIds != null) && output.size() == 0) {
             throw new ProductNotFoundException(description, tagIds);
         }
 
