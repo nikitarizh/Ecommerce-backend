@@ -1,6 +1,7 @@
 package com.nikitarizh.testtask.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -37,4 +38,22 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "product_id")}
     )
     private List<Product> orderedProducts;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!id.equals(user.id)) return false;
+        return nickname.equals(user.nickname);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + nickname.hashCode();
+        return result;
+    }
 }
