@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class DataGenerator {
+public class DataGenerator {
 
     private static final Faker FAKER = Faker.instance();
     private static final int LIST_DEFAULT_SIZE = 5;
