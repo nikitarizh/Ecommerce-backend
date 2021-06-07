@@ -1,9 +1,9 @@
 package com.nikitarizh.testtask.config;
 
-import com.nikitarizh.testtask.provider.CustomAuthenticationProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomAuthenticationProvider authProvider;
+    private final AuthenticationProvider authProvider;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
-    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+    public void configAuthentication(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authProvider);
     }
 }
