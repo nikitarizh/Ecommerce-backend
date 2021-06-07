@@ -74,10 +74,16 @@ public class TagControllerTest extends AbstractTest {
 
     @Test
     public void findAll_noData() throws Exception {
-        // WHEN / THEN
-        mockMvc.perform(get(BASE_URL + "/tags"))
-                .andExpect(status().isNotFound())
+        // WHEN
+        MvcResult mvcResult = mockMvc.perform(get(BASE_URL + "/tags"))
+                .andExpect(status().isOk())
                 .andReturn();
+
+        byte[] content = mvcResult.getResponse().getContentAsByteArray();
+        List<TagPreviewDTO> foundDTOs = objectMapper.readValue(content, new TypeReference<>() {});
+
+        // THEN
+        assertEquals(new LinkedList<>(), foundDTOs);
     }
 
     @Test
