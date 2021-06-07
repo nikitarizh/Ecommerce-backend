@@ -14,6 +14,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
     @ManyToMany
