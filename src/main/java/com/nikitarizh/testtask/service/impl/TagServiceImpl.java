@@ -58,13 +58,15 @@ public class TagServiceImpl implements TagService {
 
     @Override
     @Transactional
-    public void delete(Integer id) {
+    public void delete(Integer id, boolean force) {
         Tag tagToDelete = tagRepository.findById(id)
                 .orElseThrow(() -> new TagNotFoundException(id));
 
-        if (tagToDelete.getProducts().size() > 0) {
+        if (!force && tagToDelete.getProducts().size() > 0) {
             throw new TagIsUsedException(tagToDelete);
         }
+
+        tagToDelete.getProducts().forEach(product -> product.getTags().remove(tagToDelete));
 
         tagRepository.deleteById(id);
     }

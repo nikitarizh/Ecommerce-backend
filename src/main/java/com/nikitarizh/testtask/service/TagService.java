@@ -17,5 +17,5 @@ public interface TagService {
 
     TagPreviewDTO create(TagCreateDTO tagCreateDTO);
 
-    void delete(Integer id);
+    void delete(Integer id, boolean force);
 }

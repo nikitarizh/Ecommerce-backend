@@ -51,6 +51,18 @@ public class TagController {
             @ApiResponse(code = 404, message = "Tag with specified id doesn't exist")
     })
     public void delete(@PathVariable Integer tagId) {
-        tagService.delete(tagId);
+        tagService.delete(tagId, false);
+    }
+
+    @DeleteMapping("force/{tagId}")
+    @ApiOperation(value = "Force delete tag")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Tag is deleted"),
+            @ApiResponse(code = 400, message = "Bad DTO or product that is in cart of at least one user has this tag"),
+            @ApiResponse(code = 401, message = "Unauthorized access"),
+            @ApiResponse(code = 404, message = "Tag with specified id doesn't exist")
+    })
+    public void forceDelete(@PathVariable Integer tagId) {
+        tagService.delete(tagId, true);
     }
 }
