@@ -80,6 +80,31 @@ public class CartControllerTest extends AbstractTest {
     }
 
     @Test
+    public void addItem_isInCart() throws Exception {
+        // GIVEN
+        Product product = dataManipulator.saveProduct(DataGenerator.generateValidProduct());
+        User user = dataManipulator.saveAdmin(DataGenerator.generateValidUser());
+        String userCredentials = user.getNickname() + ":" + "rootroot1";
+
+        mockMvc.perform(post(BASE_URL + "/carts")
+                .header(HttpHeaders.AUTHORIZATION,
+                        "Basic " + Base64Utils.encodeToString(userCredentials.getBytes(StandardCharsets.UTF_8)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(product.getId().toString()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // WHEN / THEN
+        mockMvc.perform(post(BASE_URL + "/carts")
+                .header(HttpHeaders.AUTHORIZATION,
+                        "Basic " + Base64Utils.encodeToString(userCredentials.getBytes(StandardCharsets.UTF_8)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(product.getId().toString()))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+    }
+
+    @Test
     public void addItem_notExists() throws Exception {
         // GIVEN
         Product product = dataManipulator.saveProduct(DataGenerator.generateValidProduct());
@@ -136,6 +161,31 @@ public class CartControllerTest extends AbstractTest {
         // THEN
         assertFalse(dataManipulator.getUserOrderedProductsById(user.getId()).contains(product));
         assertFalse(dataManipulator.getProductOrderByById(product.getId()).contains(user));
+    }
+
+    @Test
+    public void delete_wasNotInCart() throws Exception {
+        // GIVEN
+        Product product = dataManipulator.saveProduct(DataGenerator.generateValidProduct());
+        Product product1 = dataManipulator.saveProduct(DataGenerator.generateValidProduct());
+        User admin = dataManipulator.saveAdmin(DataGenerator.generateValidUser());
+        String adminCredentials = admin.getNickname() + ":" + "rootroot1";
+        mockMvc.perform(post(BASE_URL + "/carts")
+                .header(HttpHeaders.AUTHORIZATION,
+                        "Basic " + Base64Utils.encodeToString(adminCredentials.getBytes(StandardCharsets.UTF_8)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(product.getId().toString()))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // WHEN / THEN
+        mockMvc.perform(put(BASE_URL + "/carts/remove")
+                .header(HttpHeaders.AUTHORIZATION,
+                        "Basic " + Base64Utils.encodeToString(adminCredentials.getBytes(StandardCharsets.UTF_8)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(product1.getId().toString()))
+                .andExpect(status().isNotFound())
+                .andReturn();
     }
 
     @Test
