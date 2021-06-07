@@ -43,7 +43,13 @@ public class TagServiceImpl implements TagService {
     @Override
     @Transactional(readOnly = true)
     public List<TagPreviewDTO> findAll() {
-        return tagRepository.findAll()
+        List<Tag> output = tagRepository.findAll();
+
+        if (output.size() == 0) {
+            throw new TagNotFoundException(0);
+        }
+
+        return output
                 .stream()
                 .map(TAG_MAPPER::mapToPreviewDTO)
                 .collect(Collectors.toList());
