@@ -17,7 +17,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public User getAuthenticatedUser() {
         String nickname;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

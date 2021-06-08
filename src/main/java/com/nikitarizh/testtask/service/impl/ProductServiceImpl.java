@@ -66,6 +66,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<ProductFullDTO> search(String description, List<Integer> tagIds) {
         List<ProductFullDTO> output = productRepository.search(description, tagIds)
                 .stream()
